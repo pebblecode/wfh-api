@@ -1,5 +1,5 @@
 'use strict';
-var workers = require('./controllers/workers');
+var employee = require('./controllers/employee');
 
 module.exports = [
   
@@ -14,7 +14,19 @@ module.exports = [
   {
     path: '/workers',
     method: 'GET',
-    handler: workers.getAll
+    handler: employee.getAll
+  },
+
+  {
+    path: '/workers',
+    method: 'POST',
+    handler: employee.addNew
+  },
+  
+  {
+    path: '/workers',
+    method: 'PUT',
+    handler: employee.updateStatus
   }
   
 ];

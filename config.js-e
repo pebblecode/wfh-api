@@ -1,7 +1,9 @@
 'use strict';
 var getEnv = require('getenv');
+var path = require('path');
 
 module.exports = {
-  port: getEnv.int('PORT',3000)
+  port: getEnv.int('PORT',3000),
+  dbName: getEnv('DB_NAME', 'pebblecode-wfh')
 };
 
