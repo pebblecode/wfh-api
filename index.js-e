@@ -10,6 +10,6 @@ server.connection({
 
 server.route(require('./routes'));
 
-server.start(function(){
+server.start(()=>{
   console.log('Server running at:', server.info.uri);
 });
