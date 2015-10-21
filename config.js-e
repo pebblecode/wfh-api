@@ -1,0 +1,7 @@
+'use strict';
+var getEnv = require('getenv');
+
+module.exports = {
+  port: getEnv.int('PORT',3000)
+};
+
