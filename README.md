@@ -3,6 +3,7 @@ A node implementation of the wfh api
 
 #Development
 `npm i && npm i -g nodemon`
+start server locally
 `npm run dev`
 
 #Endpoints
