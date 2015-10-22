@@ -42,6 +42,10 @@ internals.Employee.prototype.toJSON = function() {
 internals.Employee.getAll = function() {
   return Base.view(`${TYPE}/all`)
     .then((employees) => {
+      if (!employees) {
+        return [];
+      }
+
       return employees.map((employee) => {
         return employee;
       });
