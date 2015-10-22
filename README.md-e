@@ -1,8 +1,11 @@
-# wfh3_backend
-a node implementation of the wfh api
+# Wfh node backend
+A node implementation of the wfh api
 
+#Development
+`npm i && npm i -g nodemon`
+`npm run dev`
 
-#endpoints
+#Endpoints
 
 | path       |  method | payload | details |
 |------------|---------|---------|---------|

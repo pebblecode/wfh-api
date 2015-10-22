@@ -32,7 +32,10 @@ internals.Base.prototype.save = function() {
 
 };
 
-internals.Base.update = function(id, attr) {
+internals.Base.update = function(model, attr) {
+
+  const id = model.id;
+  delete model.id;
 
   return new Promise(function(resolve, reject) {
 
@@ -41,7 +44,7 @@ internals.Base.update = function(id, attr) {
         return internals.errorHandler(reject, err);
       }
 
-      resolve();
+      resolve(_.extend(model.value, attr));
     });
 
   });

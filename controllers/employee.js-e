@@ -28,7 +28,7 @@ module.exports.addNew = function(request, reply){
       return reply(Boom.conflict());
     }
 
-    return new Employee(request.payload)
+    var employee = new Employee(payload)
     .save(payload)
     .then((worker) => {
       reply();
@@ -51,6 +51,9 @@ module.exports.updateStatus = function (request, reply){
 
   Employee.updateStatus(payload.email, payload.status)
   .then((employee) => {
+    if(!employee){
+      return reply(Boom.notFound('Email Address Not Found'));
+    }
     reply(employee);
   })
   .catch((err) => {

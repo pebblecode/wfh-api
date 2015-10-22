@@ -63,7 +63,7 @@ internals.Employee.updateStatus = function(email, status){
 
     if(employee && Array.isArray(employee)){
       employee = _.first(employee);
-      return internals.Employee.update(employee.id, {status:status});
+      return internals.Employee.update(employee, {status:status});
     }
 
     return null;
