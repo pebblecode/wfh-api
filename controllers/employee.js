@@ -67,15 +67,6 @@ module.exports.updateStatus = function (request, reply){
 
 /get all workes
 
-
-  /workers
-  get all workers with email, details, statuses
-
-  post /workers/{email} // temporary for local dev
-  {
-    status:wfo|wfh|sick|holiday
-  }
-
   post /webhooks/wfo
   post /webhooks/wfslack
 

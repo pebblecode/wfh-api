@@ -9,7 +9,7 @@ var internals = {};
 
 const TYPE = 'Employee';
 
-//uppercase to keep to match usage on client and email sender.
+//uppercase to match usage on client and email sender.
 const statuses = keyMirror({
   InOffice:null,
   OutOfOffice:null,
@@ -74,7 +74,6 @@ internals.Employee.updateStatus = function(email, status){
 db.save('_design/' + TYPE, {
   all: {
     map: function(doc) {
-
       if (doc.type === 'Employee') {
         emit(doc.id, doc);
       }
