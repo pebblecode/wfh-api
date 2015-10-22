@@ -44,5 +44,11 @@ module.exports = [
         }
       }
     }
+  },
+
+  {
+    path:'/webhooks/slack',
+    method:'POST',
+    handler: employee.slackHook,
   }
 ];

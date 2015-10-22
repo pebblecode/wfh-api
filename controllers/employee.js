@@ -69,3 +69,8 @@ module.exports.updateStatus = function(request, reply) {
     reply(Boom.badImplementation());
   });
 };
+
+module.exports.slackHook = function(request, reply){
+  console.log(request.payload);
+  reply();
+};
