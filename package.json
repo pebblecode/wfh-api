@@ -6,13 +6,14 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon --debug index.js",
-    "test": "eslint --ext .js --ext .jsx ./ && echo No linting errors.",
+    "lint": "eslint --ext .js --ext .jsx ./ && echo No linting errors.",
     "awsbox": "node_modules/.bin/awsbox"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "analytics-node": "^2.0.0",
     "boom": "^2.9.0",
     "cradle": "^0.6.9",
     "diskdb": "^0.1.14",

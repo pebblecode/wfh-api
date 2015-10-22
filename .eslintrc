@@ -27,8 +27,6 @@ rules:
   no-duplicate-case: 2
   ## disallow assignment of exceptional params
   no-ex-assign: 2
-  ## disallow use of reserved words as keys like enum, class
-  no-reserved-keys: 2
   ## disallow unreachable code
   no-unreachable: 2
   ## require valid typeof compared string like typeof foo === 'strnig'
@@ -80,9 +78,6 @@ rules:
   ## disallow use of undefined variables (globals)
   no-undef: 2
 
-  # Custom rules in tools/eslint-rules
-  require-buffer: 2
-
 # Global scoped method and vars
 globals:
   DTRACE_HTTP_CLIENT_REQUEST           : false
@@ -105,3 +100,4 @@ globals:
   COUNTER_NET_SERVER_CONNECTION        : false
   escape                               : false
   unescape                             : false
+  emit                                 : true

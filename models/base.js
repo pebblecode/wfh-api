@@ -78,22 +78,22 @@ internals.Base.get = function(id) {
 
 };
 
-internals.Base.view = function(view, key){
+internals.Base.view = function(view, key) {
   var options;
 
-  if(key){
+  if (key) {
     options = {key};
   }
 
-  return new Promise(function(resolve, reject){
-    db.view(view, options, function(err,doc){
-      if(err){
+  return new Promise(function(resolve, reject) {
+    db.view(view, options, function(err, doc) {
+      if (err) {
         return reject(err);
       }
-      
+
       doc = doc.length ? doc : null;
 
       resolve(doc);
     });
   });
-}
+};

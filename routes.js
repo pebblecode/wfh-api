@@ -3,12 +3,11 @@ const Joi = require('joi');
 const employee = require('./controllers/employee');
 
 module.exports = [
-  
   {
     path:'/',
     method:'GET',
-    handler: function(request, reply){
-      reply('OK')
+    handler: function(request, reply) {
+      reply('OK');
     },
   },
 
@@ -46,5 +45,4 @@ module.exports = [
       }
     }
   }
-  
 ];
