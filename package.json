@@ -15,6 +15,7 @@
   "dependencies": {
     "analytics-node": "^2.0.0",
     "boom": "^2.9.0",
+    "camelcase-keys-recursive": "^0.2.0",
     "cradle": "^0.6.9",
     "diskdb": "^0.1.14",
     "getenv": "^0.5.0",
@@ -22,13 +23,14 @@
     "joi": "^6.9.1",
     "keymirror": "^0.1.1",
     "lodash": "^3.10.1",
-    "node-uuid": "^1.4.3"
+    "node-uuid": "^1.4.3",
+    "request": "^2.65.0"
   },
   "devDependencies": {
     "esprima": "^2.6.0",
     "awsbox": "^0.7.0"
   },
-  "engines":{
+  "engines": {
     "node": "4.x"
   }
 }
