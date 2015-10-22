@@ -27,5 +27,8 @@
   "devDependencies": {
     "esprima": "^2.6.0",
     "awsbox": "^0.7.0"
+  },
+  "engines":{
+    "node": "4.x"
   }
 }
