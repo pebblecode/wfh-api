@@ -47,7 +47,14 @@ internals.Employee.getAll = function() {
       }
 
       return employees.map((employee) => {
-        return employee;
+        return {
+          name: employee.name,
+          email: employee.email,
+          status: {
+            statusType: employee.status
+          },
+          isDefault:true
+        };
       });
     });
 

@@ -8,9 +8,7 @@ module.exports.getAll = function(request, reply) {
 
   Employee.getAll()
   .then((workers) => {
-
     reply(workers);
-
   })
   .catch((err) => {
     console.log(err);

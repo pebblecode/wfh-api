@@ -5,8 +5,10 @@ const config = require('./config');
 const server = new Hapi.Server();
 
 server.connection({
-  port: config.port
+  port: config.port,
+  routes: { cors: true }
 });
+
 
 server.route(require('./routes'));
 
