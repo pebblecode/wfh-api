@@ -6,7 +6,7 @@ var internals = {};
 
 if (process.env.NODE_ENV === 'development') {
 
-  internals.db = new Cradle.Connection().database(config.dbName);
+  internals.db = new Cradle.Connection().database(config.couchDb.dbName);
 
 } else {
 
@@ -17,7 +17,8 @@ if (process.env.NODE_ENV === 'development') {
         username: config.couchDb.username,
         password: config.couchDb.password
       }
-    });
+    })
+    .database(config.couchDb.dbName);
 }
 
 module.exports = internals.db;

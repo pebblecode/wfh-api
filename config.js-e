@@ -4,12 +4,11 @@ var path = require('path');
 
 module.exports = {
   port: getEnv.int('PORT',3000),
-  dbName: getEnv('DB_NAME', 'pebblecode-wfh'),
   couchDb:{
     username: getEnv('COUCHDB_USERNAME',''),
     password: getEnv('COUCHDB_PASSWORD',''),
     url: getEnv('COUCHDB_URL','http://127.0.0.1'),
     port: getEnv.int('COUCHDB_PORT',5984),
-    dbName: getEnv('COUCHDB_DATABASE_NAME', 'pebblecode-wfh')
+    dbName: getEnv('COUCHDB_NAME', 'pebblecode-wfh')
   }
 };

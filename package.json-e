@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon --debug index.js",
     "test": "eslint --ext .js --ext .jsx ./ && echo No linting errors."
   },

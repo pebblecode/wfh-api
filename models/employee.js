@@ -1,5 +1,5 @@
 'use strict';
-const keyMirror = require('keyMirror');
+const keyMirror = require('keymirror');
 const _ = require('lodash');
 
 
@@ -63,7 +63,7 @@ internals.Employee.updateStatus = function(email, status){
 
     if(employee && Array.isArray(employee)){
       employee = _.first(employee);
-      return internals.Employee.update(employee, {status:status});
+      return internals.Employee.update(employee, {status:status, dateModified:new Date()});
     }
 
     return null;
