@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon --debug index.js",
-    "test": "eslint --ext .js --ext .jsx ./ && echo No linting errors."
+    "test": "eslint --ext .js --ext .jsx ./ && echo No linting errors.",
+    "awsbox": "node_modules/.bin/awsbox"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
     "node-uuid": "^1.4.3"
   },
   "devDependencies": {
-    "esprima": "^2.6.0"
+    "esprima": "^2.6.0",
+    "awsbox": "^0.7.0"
   }
 }
