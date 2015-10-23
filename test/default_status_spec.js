@@ -11,13 +11,12 @@ describe('Employee', function() {
   describe('Default status', function() {
 
     it('should equal default status when date modified is for previous day', function() {
-      
-      const runTimeOverride = moment().hours(13);
+
       const employee = Employee.setDefaultStatusBasedOnTime({
         status: statuses.OutOfOffice,
         dateModified: moment().hours(14).subtract(1,'days'),
         defaultStatus: statuses.InOffice
-      },runTimeOverride);
+      },moment().hours(13));
 
       expect(employee.status).to.equal(statuses.InOffice);
     });
@@ -103,14 +102,6 @@ describe('Employee', function() {
 
       expect(employee.status).to.equal(statuses.InOffice);
     });
-    
-    it('should diff correctly', function(){
-      
-      const current = moment();
-      const yesterday = moment().subtract(1,'days');
-      
-      expect(1).to.equal(current.diff(yesterday,'days'));
-    })
 
   });
 
