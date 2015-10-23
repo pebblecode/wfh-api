@@ -3,7 +3,7 @@ var Cradle = require('cradle');
 
 var config = require('../config');
 var internals = {};
-
+debugger;
 if (process.env.NODE_ENV === 'development') {
 
   internals.db = new Cradle.Connection().database(config.couchDb.dbName);

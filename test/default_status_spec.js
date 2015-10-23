@@ -25,10 +25,22 @@ describe('Employee', function() {
 
       const employee = Employee.setDefaultStatusBasedOnTime({
         status: statuses.OutOfOffice,
-        dateModified: moment().set({
-          hours:20,
-          minutes:30
-        }).subtract(1, 'days'),
+        dateModified: moment()
+          .hours(20)
+          .minutes(0)
+          .subtract(1, 'days'),
+        defaultStatus: statuses.InOffice
+      });
+
+      expect(employee.status).to.equal(statuses.OutOfOffice);
+    });
+
+    it('should equal status when time updated is after 8pm and current time 9am the next day', function() {
+
+      const employee = Employee.setDefaultStatusBasedOnTime({
+        status: statuses.OutOfOffice,
+        dateModified: moment()
+          .hours(9),
         defaultStatus: statuses.InOffice
       });
 

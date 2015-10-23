@@ -144,9 +144,15 @@ internals.Employee.setDefaultStatusBasedOnTime = function(employee) {
 
   const dateModified = moment(employee.dateModified);
   const hours = dateModified.hours();
-
-  if (hours >= 20 && current.diff(dateModified, 'days') < 2) {
+  console.log('diff', current.diff(dateModified, 'days'));
+  if (hours >= 20 && current.diff(dateModified, 'days') === 1) {
+    //any statuses set yesterday at 8pm onwards
     return employee;
+
+  } else if (hours < 20 && current.diff(dateModified, 'days') === 0) {
+    //any statuses set today
+    return employee;
+
   } else {
     employee.status = employee.defaultStatus;
     return employee;
