@@ -3,6 +3,7 @@ const _ = require('lodash');
 const db = require('./db');
 const Base = require('./base');
 const statuses = require('../constants/statuses');
+const commandTypes = require('../constants/commandTypes');
 var internals = {};
 
 const TYPE = 'Employee';
@@ -14,7 +15,7 @@ module.exports = internals.Employee = function(options) {
   this.name = options.name;
   this.email = options.email;
   this.status = options.status; //use keymirror
-  this.defaultStatus = options.defaultStatus;
+  this.defaultStatus = options.defaultStatus || '(Not Set)';
 
   Base.call(this, options);
 };
@@ -28,11 +29,13 @@ internals.Employee.prototype.toJSON = function() {
     email: this.email,
     status: this.status,
     defaultStatus: this.defaultStatus,
+    dateModified: new Date(),
     type: TYPE
   };
 };
 
 internals.Employee.getAll = function() {
+
   return Base.view(`${TYPE}/all`)
     .then((employees) => {
       if (!employees) {
@@ -44,9 +47,11 @@ internals.Employee.getAll = function() {
           name: employee.name,
           email: employee.email,
           status: {
-            statusType: employee.status
+            statusType: employee.status, // to be determined at run time.
+            defaultStatus: employee.defaultStatus,
+            isDefault: employee.status === employee.defaultStatus
           },
-          isDefault:true
+          message: employee.message
         };
       });
     });
@@ -54,31 +59,45 @@ internals.Employee.getAll = function() {
 };
 
 internals.Employee.getByEmail = function(email) {
-  return Base.view(`${TYPE}/byEmail`, email);
+  return Base.view(`${TYPE}/byEmail`, email)
+  .then((employee) => {
+    if (employee) {
+      return _.first(employee).value;
+    } else {
+      return null;
+    }
+  });
 };
 
 internals.Employee.isValidStatus = function(status) {
   return !!statuses[status];
 };
 
-internals.Employee.updateStatus = function(email, status, defaultStatus) {
+internals.Employee.updateStatus = function(email, status, command) {
   return internals.Employee.getByEmail(email)
-    .then((result) => {
+    .then((employee) => {
 
-      if (result && Array.isArray(result)) {
-        let employee = _.first(result);
-        //also add new record for historical data.
+      if (employee) {
 
         var attr = {
           status: status,
-          dateModified: new Date()
+          dateModified: new Date(),
+          message: ''
         };
 
-        if (internals.Employee.isValidStatus(defaultStatus)) {
-          attr.defaultStatus = defaultStatus;
+
+        if (command && !!commandTypes[command.commandType]) {
+          if (command.commandType === commandTypes.default && internals.Employee.isValidStatus(command.value)) {
+            attr.defaultStatus = command.value;
+          }
+
+          if (command.commandType === commandTypes.message) {
+            attr.message = command.value;
+          }
         }
 
         return internals.Employee.update(employee, attr);
+        //also add new record for historical data.
       }
 
       return null;

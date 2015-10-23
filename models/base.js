@@ -34,7 +34,7 @@ internals.Base.prototype.save = function() {
 
 internals.Base.update = function(model, attr) {
 
-  const id = model.id;
+  const id = model.id || model._id;
   delete model.id;
 
   return new Promise(function(resolve, reject) {
@@ -44,7 +44,7 @@ internals.Base.update = function(model, attr) {
         return internals.errorHandler(reject, err);
       }
 
-      resolve(_.extend(model.value, attr));
+      resolve(_.extend(model, attr));
     });
 
   });
