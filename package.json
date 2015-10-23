@@ -8,7 +8,7 @@
     "dev": "nodemon --debug index.js",
     "lint": "eslint --ext .js --ext .jsx ./ && echo No linting errors.",
     "test": "mocha",
-    "test:watch":"npm run test -- --watch",
+    "test:watch": "npm run test -- --watch",
     "awsbox": "node_modules/.bin/awsbox"
   },
   "keywords": [],
@@ -32,8 +32,9 @@
     "request": "^2.65.0"
   },
   "devDependencies": {
-    "esprima": "^2.6.0",
-    "awsbox": "^0.7.0"
+    "awsbox": "^0.7.0",
+    "chai": "^3.4.0",
+    "esprima": "^2.6.0"
   },
   "engines": {
     "node": "4.x"

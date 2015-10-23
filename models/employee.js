@@ -137,19 +137,19 @@ internals.Employee.updateStatus = function(email, status, command) {
 
 };
 
-internals.Employee.setDefaultStatusBasedOnTime = function(employee) {
-  const current = moment();
+internals.Employee.setDefaultStatusBasedOnTime = function(employee, overrideCurrent) {
+  const current = overrideCurrent || moment();
 
   const currentHours = current.hours();
 
   const dateModified = moment(employee.dateModified);
   const hours = dateModified.hours();
-  console.log('diff', current.diff(dateModified, 'days'));
-  if (hours >= 20 && current.diff(dateModified, 'days') === 1) {
+
+  if (hours >= 20 && current.clone().subtract(1,'days').isSame(dateModified, 'd')) {
     //any statuses set yesterday at 8pm onwards
     return employee;
 
-  } else if (hours < 20 && current.diff(dateModified, 'days') === 0) {
+  } else if (hours < 20 && current.isSame(dateModified, 'd')) {
     //any statuses set today
     return employee;
 
