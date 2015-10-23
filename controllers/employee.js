@@ -89,11 +89,11 @@ function slackTokenMatch(token) {
 module.exports.slackHook = function(request, reply) {
   console.log(request.payload);
   const payload = request.payload;
-  const token = payload.token;
 
-  if (!slackTokenMatch(token)) {
+  if (!slackTokenMatch(payload.token)) {
     return reply(Boom.badRequest('Bad Request Token'));
   }
+
   const slashCommand = payload.command.substr('1');
   const status = commandMapper(slashCommand);
   const command = commandParser(payload.text);

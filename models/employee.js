@@ -2,8 +2,10 @@
 const _ = require('lodash');
 const db = require('./db');
 const Base = require('./base');
+const moment = require('moment');
 const statuses = require('../constants/statuses');
 const commandTypes = require('../constants/commandTypes');
+const logEvent = require('../util/logEvent');
 var internals = {};
 
 const TYPE = 'Employee';
@@ -15,7 +17,8 @@ module.exports = internals.Employee = function(options) {
   this.name = options.name;
   this.email = options.email;
   this.status = options.status; //use keymirror
-  this.defaultStatus = options.defaultStatus || '(Not Set)';
+  this.defaultStatus = options.defaultStatus || this.status;
+  this.dateModified = options.dateModified;
 
   Base.call(this, options);
 };
@@ -42,7 +45,18 @@ internals.Employee.getAll = function() {
         return [];
       }
 
-      return employees.map((employee) => {
+      let batchUpdates = [];
+
+      employees = employees.map((employee) => {
+        let status = employee.status;
+
+        internals.Employee.setDefaultStatusBasedOnTime(employee);
+
+        //update database and send events to analytics for users that have not logged their status today.
+        if (status !== employee.status) {
+          batchUpdates.push(employee);
+        }
+
         return {
           name: employee.name,
           email: employee.email,
@@ -54,7 +68,23 @@ internals.Employee.getAll = function() {
           message: employee.message
         };
       });
+
+      internals.Employee.batchUpdate(batchUpdates);
+
+      return employees;
     });
+
+};
+
+internals.Employee.batchUpdate = function(employees) {
+
+  employees.forEach(employee => {
+    logEvent(employee);
+    internals.Employee.update(employee.email, employee.status)
+    .catch(err => {
+      console.log(`Error updating ${employee.name} status in background`);
+    });
+  });
 
 };
 
@@ -85,9 +115,11 @@ internals.Employee.updateStatus = function(email, status, command) {
           message: ''
         };
 
-
         if (command && !!commandTypes[command.commandType]) {
-          if (command.commandType === commandTypes.default && internals.Employee.isValidStatus(command.value)) {
+
+          if (command.commandType === commandTypes.default
+              && internals.Employee.isValidStatus(command.value)) {
+
             attr.defaultStatus = command.value;
           }
 
@@ -102,6 +134,23 @@ internals.Employee.updateStatus = function(email, status, command) {
 
       return null;
     });
+
+};
+
+internals.Employee.setDefaultStatusBasedOnTime = function(employee) {
+  const current = moment();
+
+  const currentHours = current.hours();
+
+  const dateModified = moment(employee.dateModified);
+  const hours = dateModified.hours();
+
+  if (hours >= 20 && current.diff(dateModified, 'days') < 2) {
+    return employee;
+  } else {
+    employee.status = employee.defaultStatus;
+    return employee;
+  }
 
 };
 

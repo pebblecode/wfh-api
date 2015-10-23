@@ -20,5 +20,5 @@ if (process.env.NODE_ENV === 'development') {
     })
     .database(config.couchDb.dbName);
 }
-
+console.log(internals.db);
 module.exports = internals.db;

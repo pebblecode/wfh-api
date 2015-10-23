@@ -1,6 +1,7 @@
 env:
   node: true
-
+  mocha: true
+  
 # enable ECMAScript features
 ecmaFeatures:
   arrowFunctions: true
