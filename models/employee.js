@@ -1,21 +1,12 @@
 'use strict';
-const keyMirror = require('keymirror');
 const _ = require('lodash');
-
-
 const db = require('./db');
 const Base = require('./base');
+const statuses = require('../constants/statuses');
 var internals = {};
 
 const TYPE = 'Employee';
 
-//uppercase to match usage on client and email sender.
-const statuses = keyMirror({
-  InOffice: null,
-  OutOfOffice: null,
-  Sick: null,
-  Holiday: null
-});
 
 module.exports = internals.Employee = function(options) {
   options = options || {};
@@ -23,6 +14,7 @@ module.exports = internals.Employee = function(options) {
   this.name = options.name;
   this.email = options.email;
   this.status = options.status; //use keymirror
+  this.defaultStatus = options.defaultStatus;
 
   Base.call(this, options);
 };
@@ -35,6 +27,7 @@ internals.Employee.prototype.toJSON = function() {
     name: this.name,
     email: this.email,
     status: this.status,
+    defaultStatus: this.defaultStatus,
     type: TYPE
   };
 };
@@ -68,16 +61,24 @@ internals.Employee.isValidStatus = function(status) {
   return !!statuses[status];
 };
 
-internals.Employee.updateStatus = function(email, status) {
+internals.Employee.updateStatus = function(email, status, defaultStatus) {
   return internals.Employee.getByEmail(email)
-    .then((employee) => {
+    .then((result) => {
 
-      if (employee && Array.isArray(employee)) {
-        employee = _.first(employee);
-        return internals.Employee.update(employee, {
+      if (result && Array.isArray(result)) {
+        let employee = _.first(result);
+        //also add new record for historical data.
+
+        var attr = {
           status: status,
           dateModified: new Date()
-        });
+        };
+
+        if (internals.Employee.isValidStatus(defaultStatus)) {
+          attr.defaultStatus = defaultStatus;
+        }
+
+        return internals.Employee.update(employee, attr);
       }
 
       return null;

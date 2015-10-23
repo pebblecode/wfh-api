@@ -1,20 +1,24 @@
 'use strict';
-const keyMirror = require('keymirror');
-const commands = keyMirror({
-  wfh: null,
-  wfo: null,
-  wfhtest: null
-});
 
-module.exports = function(command) {
-  command = command.substr(1);
+const commands = require('../constants/commands');
+const statuses = require('../constants/statuses');
+
+var internals = {};
+
+module.exports = internals.commands = function(command) {
+
   switch (command) {
   case commands.wfh:
-    return 'OutOfOffice';
+    return statuses.OutOfOffice;
   case commands.wfo:
-    return 'InOffice';
+    return statuses.InOffice;
+  case commands.wfotest:
+    return statuses.InOffice;
+  case commands.wfhtest:
+    return statuses.OutOfOffice;
   default:
-    return 'InOffice';
+    return statuses.InOffice;
   }
 
 };
+

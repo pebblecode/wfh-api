@@ -7,6 +7,8 @@ const logEvent = require('../util/logEvent');
 const Slack = require('../util/slack');
 const commandMapper = require('../util/commandMapper');
 
+const commands = require('../constants/commands');
+
 const slack = new Slack({token:config.slack.token});
 
 module.exports.getAll = function(request, reply) {
@@ -75,34 +77,64 @@ module.exports.updateStatus = function(request, reply) {
   });
 };
 
+function slackTokenMatch(token) {
+  const tokens = config.slack.webhooks.requestTokens;
+  const match = tokens.filter((t) => {
+    return t === token;
+  });
+
+  return match.length > 0;
+}
+
+function getDefaultStatus(text) {
+  const paramSplit = text.split('default:');
+
+  if (paramSplit.length === 2 && !!commands[paramSplit[1]]) {
+    return commandMapper(paramSplit[1]);
+  } else {
+    return '';
+  }
+}
+
 module.exports.slackHook = function(request, reply) {
   console.log(request.payload);
-  var payload = request.payload;
+  const payload = request.payload;
+  const token = payload.token;
 
-  if (request.payload.token !== config.slack.webhooks.requestToken) {
+  if (!slackTokenMatch(token)) {
     return reply(Boom.badRequest('Bad Request Token'));
   }
 
-  const status = commandMapper(payload.command);
+  const status = commandMapper(payload.command.substr('1'));
+  const defaultStatus = getDefaultStatus(payload.text);
 
   slack.getUserInfo(payload.user_id)
   .then((result) => {
-    const user = result.user;
-    const profile = user.profile;
+    const profile = result.user.profile;
 
     return Employee.getByEmail(profile.email)
     .then((employee) => {
+
       if (!employee) {
-        return new Employee({name: profile.realName, email:profile.email, status})
+
+        return new Employee({
+          name: profile.realName,
+          email: profile.email,
+          status,
+          defaultStatus:defaultStatus
+        })
         .save();
+
       } else {
-        return Employee.updateStatus(profile.email, status);
+
+        return Employee.updateStatus(profile.email, status, defaultStatus);
       }
     })
     .then((employee) => {
-      reply(`Updated status to ${employee.status}`);
+      reply(`Updated status to ${employee.status}, your default status is: ${employee.defaultStatus}`);
       logEvent(employee);
     });
+
   })
   .catch((err) => {
     console.log(err);
