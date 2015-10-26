@@ -18,6 +18,7 @@ module.exports = internals.Employee = function(options) {
   this.email = options.email;
   this.status = options.status; //use keymirror
   this.defaultStatus = options.defaultStatus || this.status;
+  this.command = options.command;
   this.dateModified = options.dateModified;
 
   Base.call(this, options);
@@ -92,6 +93,19 @@ internals.Employee.batchUpdate = function(employees) {
         console.log(`Error updating ${employee.name} status in background`);
       });
   });
+
+};
+
+internals.Employee.prototype.save = function() {
+  var employee = this;
+
+  return Base.prototype.save.call(this)
+  .then(() => {
+    return internals.Employee.updateStatus(this.employee, this.status, this.command);
+  })
+  // .then(() => {
+  //   return employee;
+  // });
 
 };
 
