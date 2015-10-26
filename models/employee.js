@@ -57,7 +57,7 @@ internals.Employee.getAll = function() {
         internals.Employee.setDefaultStatusBasedOnTime(employee);
 
         //update database and send events to analytics for users that have not logged their status today.
-        if (status !== employee.status) {
+        if (employee.statusExpired) {
           batchUpdates.push(employee);
         }
 
@@ -85,25 +85,25 @@ internals.Employee.batchUpdate = function(employees) {
   employees.forEach(employee => {
     logEvent(employee);
     internals.Employee.updateStatus(employee.email, employee.status)
-    .then(() => {
-      console.log(`Updated ${employee.name} status:${employee.status} in background`);
-    })
-    .catch(err => {
-      console.log(`Error updating ${employee.name} status in background`);
-    });
+      .then(() => {
+        console.log(`Updated ${employee.name} status:${employee.status} in background`);
+      })
+      .catch(err => {
+        console.log(`Error updating ${employee.name} status in background`);
+      });
   });
 
 };
 
 internals.Employee.getByEmail = function(email) {
   return Base.view(`${TYPE}/byEmail`, email)
-  .then((employee) => {
-    if (employee) {
-      return _.first(employee).value;
-    } else {
-      return null;
-    }
-  });
+    .then((employee) => {
+      if (employee) {
+        return _.first(employee).value;
+      } else {
+        return null;
+      }
+    });
 };
 
 internals.Employee.isValidStatus = function(status) {
@@ -124,8 +124,7 @@ internals.Employee.updateStatus = function(email, status, command) {
 
         if (command && !!commandTypes[command.commandType]) {
 
-          if (command.commandType === commandTypes.default
-              && internals.Employee.isValidStatus(command.value)) {
+          if (command.commandType === commandTypes.default && internals.Employee.isValidStatus(command.value)) {
 
             attr.defaultStatus = command.value;
           }
@@ -135,8 +134,8 @@ internals.Employee.updateStatus = function(email, status, command) {
           }
         }
 
-        return internals.Employee.update(employee, attr);
-        //also add new record for historical data.
+        return internals.Employee.update(employee, attr)
+          .then(internals.Employee.appendStatus);
       }
 
       return null;
@@ -161,11 +160,34 @@ internals.Employee.setDefaultStatusBasedOnTime = function(employee, overrideCurr
     return employee;
 
   } else {
+    employee.statusExpired = true;
     //any expired statuses set default.
     employee.status = employee.defaultStatus;
     return employee;
   }
 
+};
+
+internals.Employee.appendStatus = function(employee) {
+  return new Promise((resolve, reject) => {
+
+    db.save({
+      TYPE: 'Employee-Log',
+      id: employee.email + '/' + new Date(),
+      status: employee.status,
+      defaultStatus: employee.defaultStatus,
+      dateModified: new Date(),
+      email: employee.email,
+      name: employee.name,
+      message: employee.message
+    }, function(err, res) {
+      if (err) {
+        return reject(err);
+      }
+      resolve(employee);
+    });
+
+  });
 };
 
 db.save('_design/' + TYPE, {
