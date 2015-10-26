@@ -85,6 +85,9 @@ internals.Employee.batchUpdate = function(employees) {
   employees.forEach(employee => {
     logEvent(employee);
     internals.Employee.updateStatus(employee.email, employee.status)
+    .then(() => {
+      console.log(`Updated ${employee.name} status:${employee.status} in background`);
+    })
     .catch(err => {
       console.log(`Error updating ${employee.name} status in background`);
     });
