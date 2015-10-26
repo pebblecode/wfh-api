@@ -80,7 +80,7 @@ internals.Employee.batchUpdate = function(employees) {
 
   employees.forEach(employee => {
     logEvent(employee);
-    internals.Employee.update(employee.email, employee.status)
+    internals.Employee.updateStatus(employee.email, employee.status)
     .catch(err => {
       console.log(`Error updating ${employee.name} status in background`);
     });
@@ -145,7 +145,7 @@ internals.Employee.setDefaultStatusBasedOnTime = function(employee, overrideCurr
   const dateModified = moment(employee.dateModified);
   const hours = dateModified.hours();
 
-  if (hours >= 20 && current.clone().subtract(1,'days').isSame(dateModified, 'd')) {
+  if (hours >= 20 && current.clone().subtract(1, 'days').isSame(dateModified, 'd')) {
     //any statuses set yesterday at 8pm onwards
     return employee;
 
@@ -154,6 +154,7 @@ internals.Employee.setDefaultStatusBasedOnTime = function(employee, overrideCurr
     return employee;
 
   } else {
+    //any expired statuses set default.
     employee.status = employee.defaultStatus;
     return employee;
   }
