@@ -37,6 +37,10 @@ internals.Employee.prototype.toJSON = function() {
   };
 };
 
+
+// When get all is requested we check for expired statuses, this way we enusre response is correct,
+// and the data stored in db and analytics is correct. I.e. some employees may not update their status
+// until they work opposite to their usual work location.
 internals.Employee.getAll = function() {
 
   return Base.view(`${TYPE}/all`)
