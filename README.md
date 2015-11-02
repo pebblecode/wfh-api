@@ -1,16 +1,21 @@
 # Wfh node backend
-A node implementation of the wfh api
+A node implementation of the wfh api, more details see blogpost: http://pebblecode.com/blog/hack-day-wfh-bot/
 
 
-#Development
-Install CouchDB:
-http://couchdb.apache.org/#download
+#Development && installation
+[Install CouchDB](http://couchdb.apache.org/#download) and run.
+For a nicer couch db ui install: `npm i -g fauxton` then in a new shell run `fauxton`
 
 `npm i && npm i -g nodemon`
 start server locally
 `npm run dev`
 
 When NODE_ENV === 'development' connection will be made with localhost couchdb. 
+
+#Configuration
+Copy config.template.js > config.js and complete the default fields getEnv('ENV_VAR','DEFAULT_VALUE'),
+to get a slack token visit: https://api.slack.com/web
+
 
 #Endpoints
 
@@ -22,18 +27,8 @@ When NODE_ENV === 'development' connection will be made with localhost couchdb.
 
 
 #Deployment
-- is done via git push like heroku, this is a awsbox image, for more details see: https://github.com/mozilla/awsbox/blob/master/doc/HOW_DO_I.md  and https://github.com/mozilla/awsbox
+- Up to you. we currently use heroku. 
+- DB is [couchdb](http://couchdb.apache.org/) and hosted on [Cloudant](https://cloudant.com/) create a database called: `wfh`
 
-`git remote add aws 46.51.183.129`
-
-#Remote access to AWSBOX
-- more details on awsbox setup and layout: https://github.com/mozilla/awsbox/tree/master/doc
-admin
-`ssh ec2-user@46.51.183.129`
-app user
-`ssh app@46.51.183.129`
-
-#environment variables
-on remote server
-/users/app/config.json
-
+#Helpful Links
+ - Slack [api](https://api.slack.com/).
