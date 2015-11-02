@@ -28,6 +28,8 @@ to get a slack token visit: https://api.slack.com/web
 
 #Deployment
 - Up to you. we currently use heroku. 
+- Deploy your own.  
+[![Deploy your own!](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fpebblecode%2Fwfh3_backend)
 - DB is [couchdb](http://couchdb.apache.org/) and hosted on [Cloudant](https://cloudant.com/) create a database called: `wfh`
 - #####ENV variables Set the following to get your app up and running
     - COUCHDB_USERNAME
