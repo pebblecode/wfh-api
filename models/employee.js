@@ -102,10 +102,7 @@ internals.Employee.prototype.save = function() {
   return Base.prototype.save.call(this)
   .then(() => {
     return internals.Employee.updateStatus(this.employee, this.status, this.command);
-  })
-  // .then(() => {
-  //   return employee;
-  // });
+  });
 
 };
 
