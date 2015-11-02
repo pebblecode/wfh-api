@@ -1,6 +1,0 @@
-{
-  "processes": [ "index.js" ],
-  "env": {
-    "CONFIG_FILES": "$HOME/config.json"
-  }
-}
