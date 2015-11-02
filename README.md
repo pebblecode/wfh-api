@@ -1,6 +1,16 @@
 # Wfh node backend
 A node implementation of the wfh api, more details see blogpost: http://pebblecode.com/blog/hack-day-wfh-bot/
 
+in slack you can do:
+`/wfo`
+`/wfh`
+
+you will need to configure Slack slash [commands](https://slack.com/services#service_16).
+use `/wfh` and `/wfo` to point to: `/webhooks/slack`, use a post request and add the tokens to the apps environment variables
+
+### parameters
+message: `/wfh message:I'll be at home in my pants` or `/wfo message:I'll be at the stand up desk today`
+default: this allows your default location to be either `wfh,wfo`
 
 #Development && installation
 [Install CouchDB](http://couchdb.apache.org/#download) and run.
@@ -48,6 +58,7 @@ to get a slack token visit: https://api.slack.com/web
 
 
 # TODO:
+- Add functionality to delete workers (use slack as source of truth. slack api)
 - Websocket support for connecting devices
 - Docker deployment
 
