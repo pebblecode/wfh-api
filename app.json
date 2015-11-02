@@ -3,5 +3,30 @@
   "description": "A Hapi, CouchDb rest api for handling /wfh /wfo slash commands from slack",
   "repository": "https://github.com/pebblecode/wfh3_backend",
   "logo": "https://media.glassdoor.com/sqll/998927/pebble-code-squarelogo-1432313973043.png",
-  "keywords": ["node", "hapi", "pebble{code}", "working from home"]
+  "keywords": ["node", "hapi", "pebble{code}", "working from home"],
+  "env": {
+    "COUCHDB_USERNAME": {
+      "description": "CouchDb username"
+    },
+    "COUCHDB_PASSWORD": {
+      "description": "CouchDb password"
+    },
+    "COUCHDB_URL":{
+      "description":"couch db url, eg: https://<your_account>.cloudant.com"
+    },
+    "COUCHDB_PORT":{
+      "description":"CouchDb port",
+      "value":443
+    },
+    "COUCHDB_NAME":{
+      "description":"",
+      "value":"wfh"
+    },
+    "SLACK_TOKEN":{
+      "description": "to get slack profiles"
+    },
+    "SLACK_WEBHOOK_TOKENS":{
+      "description":"comma seperated for each webhook, /wfo, /wfh"
+    }
+  }
 }
