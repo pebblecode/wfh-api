@@ -10,7 +10,7 @@ use `/wfh` and `/wfo` to point to: `/webhooks/slack`, use a post request and add
 
 ### parameters
 message: `/wfh message:I'll be at home in my pants` or `/wfo message:I'll be at the stand up desk today`
-default: this allows your default location to be either `wfh,wfo`
+default: `/wfh default:wfo` this allows your default location to be either `wfh,wfo` 
 
 #Development && installation
 [Install CouchDB](http://couchdb.apache.org/#download) and run.
