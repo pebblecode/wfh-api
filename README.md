@@ -12,8 +12,8 @@ start server locally
 
 When NODE_ENV === 'development' connection will be made with localhost couchdb. 
 
-#Configuration
-Copy config.template.js > config.js and complete the default fields getEnv('ENV_VAR','DEFAULT_VALUE'),
+###Configuration for local development.
+Copy `config.template.js > config.js` and complete the default fields `getEnv('ENV_VAR','DEFAULT_VALUE')`,
 to get a slack token visit: https://api.slack.com/web
 
 
@@ -22,7 +22,7 @@ to get a slack token visit: https://api.slack.com/web
 | path       |  method | payload | details |
 |------------|---------|---------|---------|
 |   /workers |   GET   |         | get all workers, used by email cron and tv display |
-|   /workers |   POST   |   `{"name":"John Snow", "email":"john.snow@pebblecode.com", status:"Sick" }`  | get all workers, used by email cron and tv display |
+|   /workers |   POST   |   `{"name":"John Snow", "email":"john.snow@pebblecode.com", status:"Sick" }`  | create a new worker, `"message": "your message"` is optional |
 | /workers   | PUT | `{"email":"john.snow@pebblecode.com", "status":"Holiday"}` | Update status for worker|
 
 
@@ -45,3 +45,9 @@ to get a slack token visit: https://api.slack.com/web
 #Helpful Links
  - Slack [api](https://api.slack.com/).
  - [Segment](https://segment.io).
+
+
+# TODO:
+- Websocket support for connecting devices
+- Docker deployment
+
