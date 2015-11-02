@@ -2,6 +2,6 @@
   "name": "pebble-code-wfh-server",
   "description": "A Hapi, CouchDb rest api for handling /wfh /wfo slash commands from slack",
   "repository": "https://github.com/pebblecode/wfh3_backend",
-  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "logo": "https://media.glassdoor.com/sqll/998927/pebble-code-squarelogo-1432313973043.png",
   "keywords": ["node", "hapi", "pebble{code}", "working from home"]
 }
