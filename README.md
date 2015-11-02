@@ -29,6 +29,17 @@ to get a slack token visit: https://api.slack.com/web
 #Deployment
 - Up to you. we currently use heroku. 
 - DB is [couchdb](http://couchdb.apache.org/) and hosted on [Cloudant](https://cloudant.com/) create a database called: `wfh`
+- #####ENV variables Set the following to get your app up and running
+    - COUCHDB_USERNAME
+    - COUCHDB_PASSWORD
+    - COUCHDB_URL
+    - COUCHDB_PORT
+    - COUCHDB_NAME
+
+    - SEGMENT_IO_WRITE_KEY (optional) used for tracking and graphs to work out averages for sickness, holiday, out of office etc.
+    - SLACK_TOKEN used to get a users profile see slack [docs](https://api.slack.com/).
+
 
 #Helpful Links
  - Slack [api](https://api.slack.com/).
+ - [Segment](https://segment.io).

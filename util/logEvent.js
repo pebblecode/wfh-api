@@ -3,6 +3,9 @@ const Analytics = require('analytics-node');
 const config = require('../config');
 
 module.exports = function(employee) {
+  if (!config.segment && !config.segment.writeKey) {
+    return;
+  }
 
   const analytics = new Analytics(config.segment.writeKey);
   analytics.identify({

@@ -1,0 +1,7 @@
+{
+  "name": "pebble {code} Slack working from home slash commands server",
+  "description": "A Hapi, CouchDb rest api for handling /wfh /wfo slash commands from slack, with an api to allow you to enter data in other ways. see blog http://pebblecode.com/blog/hack-day-wfh-bot/",
+  "repository": "https://github.com/pebblecode/wfh3_backend",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["node", "hapi", "pebble{code}", "working from home"]
+}
