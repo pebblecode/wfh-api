@@ -9,18 +9,20 @@ const commandMapper = require('../util/commandMapper');
 const commandParser = require('../util/commandParser');
 const commands = require('../constants/commands');
 
-const slack = new Slack({token:config.slack.token});
+const slack = new Slack({
+  token: config.slack.token
+});
 
 module.exports.getAll = function(request, reply) {
 
   Employee.getAll()
-  .then((workers) => {
-    reply(workers);
-  })
-  .catch((err) => {
-    console.log(err);
-    reply(Boom.badImplementation());
-  });
+    .then((workers) => {
+      reply(workers);
+    })
+    .catch((err) => {
+      console.log(err);
+      reply(Boom.badImplementation());
+    });
 
 };
 
@@ -29,27 +31,31 @@ module.exports.addNew = function(request, reply) {
   var payload = request.payload;
 
   Employee.getByEmail(payload.email)
-  .then((employee) => {
-    if (employee) {
-      return reply(Boom.conflict());
-    }
-
-    var employee = new Employee(payload)
-    .save(payload)
-    .then((worker) => {
-
-      reply();
-
-      if (worker) {
-        logEvent(employee);
+    .then((employee) => {
+      if (employee) {
+        return reply(Boom.conflict());
       }
-    });
 
-  })
-  .catch((err) => {
-    console.log(err);
-    reply(Boom.badImplementation());
-  });
+      if (!Employee.isValidStatus(payload.status)) {
+        return reply(Boom.badRequest('Not a valid status type'));
+      }
+
+      var employee = new Employee(payload)
+        .save(payload)
+        .then((worker) => {
+
+          reply();
+
+          if (worker) {
+            logEvent(employee);
+          }
+        });
+
+    })
+    .catch((err) => {
+      console.log(err);
+      reply(Boom.badImplementation());
+    });
 
 };
 
@@ -61,27 +67,25 @@ module.exports.updateStatus = function(request, reply) {
   }
 
   Employee.updateStatus(payload.email, payload.status)
-  .then((employee) => {
-    if (!employee) {
-      return reply(Boom.notFound('Email Address Not Found'));
-    }
+    .then((employee) => {
+      if (!employee) {
+        return reply(Boom.notFound('Email Address Not Found'));
+      }
 
-    reply(employee);
+      reply(employee);
 
-    logEvent(employee);
+      logEvent(employee);
 
-  })
-  .catch((err) => {
-    console.log(err);
-    reply(Boom.badImplementation());
-  });
+    })
+    .catch((err) => {
+      console.log(err);
+      reply(Boom.badImplementation());
+    });
 };
 
 function slackTokenMatch(token) {
   const tokens = config.slack.webhooks.requestTokens;
-  const match = tokens.filter((t) => {
-    return t === token;
-  });
+  const match = tokens.filter((t) => t === token);
 
   return match.length > 0;
 }
@@ -99,35 +103,35 @@ module.exports.slackHook = function(request, reply) {
   const command = commandParser(payload.text);
 
   slack.getUserInfo(payload.user_id)
-  .then((result) => {
-    const profile = result.user.profile;
+    .then((result) => {
+      const profile = result.user.profile;
 
-    return Employee.getByEmail(profile.email)
-    .then((employee) => {
+      return Employee.getByEmail(profile.email)
+        .then((employee) => {
 
-      if (!employee) {
+          if (!employee) {
 
-        return new Employee({
-          name: profile.realName,
-          email: profile.email,
-          status,
-          command
+            return new Employee({
+              name: profile.realName,
+              email: profile.email,
+              status,
+              command
+            })
+            .save();
+
+          } else {
+
+            return Employee.updateStatus(employee.email, status, command);
+          }
         })
-        .save();
+        .then((employee) => {
+          reply(`Updated status to ${employee.status}, your default status is: ${employee.defaultStatus}, to change your default status use \`/${slashCommand} default:(wfo|wfh) \``);
+          logEvent(employee);
+        });
 
-      } else {
-
-        return Employee.updateStatus(employee.email, status, command);
-      }
     })
-    .then((employee) => {
-      reply(`Updated status to ${employee.status}, your default status is: ${employee.defaultStatus}, to change your default status use \`/${slashCommand} default:(wfo|wfh) \``);
-      logEvent(employee);
+    .catch((err) => {
+      console.log(err);
+      reply(Boom.badImplementation());
     });
-
-  })
-  .catch((err) => {
-    console.log(err);
-    reply(Boom.badImplementation());
-  });
 };

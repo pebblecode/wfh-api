@@ -19,5 +19,10 @@ module.exports = {
     webhooks:{
       requestTokens: getEnv('SLACK_WEBHOOK_TOKENS', '').split(',')
     }
+  },
+  auth:{
+    admin:{
+      password: getEnv('ADMIN_PASSWORD', '$2a$10$oIeQ626Z5yIU7IsvC.1t2.JaegXE1Jn9FaLxF1SfA/jXgQNFah/Wu')
+    }
   }
 };

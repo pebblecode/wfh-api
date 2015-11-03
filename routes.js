@@ -14,7 +14,7 @@ module.exports = [
   {
     path: '/workers',
     method: 'GET',
-    handler: employee.getAll,
+    handler: employee.getAll
   },
 
   {
@@ -28,7 +28,8 @@ module.exports = [
           email: Joi.string().email(),
           status: Joi.string().min(4)
         }
-      }
+      },
+      auth: 'simple'
     }
   },
 
