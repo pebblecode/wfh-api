@@ -60,5 +60,5 @@ to get a slack token visit: https://api.slack.com/web
 # TODO:
 - Add functionality to delete workers (use slack as source of truth. slack api)
 - Websocket support for connecting devices
-- Docker deployment
+- Docker deployment - fix bcrypt build errors: https://github.com/ncb000gt/node.bcrypt.js/issues/368
 
