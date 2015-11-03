@@ -36,6 +36,7 @@ use `/wfh` and `/wfo` to point to: `/webhooks/slack`, use a post request and add
     - SEGMENT_IO_WRITE_KEY (optional) used for tracking and graphs to work out averages for sickness, holiday, out of office etc.
     - SLACK_TOKEN used to get a users profile see slack [docs](https://api.slack.com/).
 
+    - ADMIN_PASSWORD for admin user, basic auth password
 
 #Development && installation
 [Install CouchDB](http://couchdb.apache.org/#download) and run.
@@ -61,6 +62,8 @@ to get a slack token visit: https://api.slack.com/web
 | /workers   | PUT | `{"email":"john.snow@pebblecode.com", "status":"Holiday"}` | Update status for worker|
 | /workers/{id}   | DELETE |  | Delete a worker|
 
+#AUTH 
+is BASIC auth and password is a hashed bcrypt stored in the `ADMIN_PASSWORD` env variable.
 
 #Helpful Links
  - Slack [api](https://api.slack.com/).

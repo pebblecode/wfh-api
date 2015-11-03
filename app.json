@@ -27,6 +27,9 @@
     },
     "SLACK_WEBHOOK_TOKENS":{
       "description":"comma seperated for each webhook, /wfo, /wfh"
+    },
+    "ADMIN_PASSWORD":{
+      "description": "admin user password, enter hash value from: https://www.dailycred.com/article/bcrypt-calculator use 10 rounds"
     }
   }
 }
