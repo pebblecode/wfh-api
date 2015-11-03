@@ -1,6 +1,6 @@
 # WFH API 
 ### What is this?
-We at pebble have an remote working policy, so to help find out who is working where; we have built a system to show the list of workers and thier status. For more details see our blogpost:http://pebblecode.com/blog/hack-day-wfh-bot/ Do you also work in a remote workplace and using slack? Deploy your own, and start building things with the api.
+We at pebble have an remote working policy, so to help find out who is working where; we have built a system to show the list of workers and thier status. For more details see our blogpost:http://pebblecode.com/blog/hack-day-wfh-bot/ Do you also work in a remote workplace? If you're using Slack you can easily deploy your own, and even start building things with the api. We have two services connecting to our api, one to send a summary email every day mon-fri at 10am and another which pulls sickness and holiday information from our HR system.
 
 This repo contains a node implementation of the pebble {code}the wfh api, more details see blogpost: http://pebblecode.com/blog/hack-day-wfh-bot/
 
@@ -59,6 +59,7 @@ to get a slack token visit: https://api.slack.com/web
 |   /workers |   GET   |         | get all workers, used by email cron and tv display |
 |   /workers |   POST   |   `{"name":"John Snow", "email":"john.snow@pebblecode.com", status:"Sick" }`  | create a new worker, `"message": "your message"` is optional |
 | /workers   | PUT | `{"email":"john.snow@pebblecode.com", "status":"Holiday"}` | Update status for worker|
+| /workers/{id}   | DELETE |  | Delete a worker|
 
 
 #Helpful Links
