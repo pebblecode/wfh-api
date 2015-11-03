@@ -83,6 +83,21 @@ module.exports.updateStatus = function(request, reply) {
     });
 };
 
+module.exports.delete = function(request, reply) {
+  Employee.delete(request.params.id)
+  .then((employee) => {
+    if (!employee) {
+      return reply(Boom.notFound('Worker not found'));
+    }
+
+    reply();
+  })
+  .catch((err) => {
+    console.log(err);
+    reply(Boom.badImplementation());
+  });
+};
+
 function slackTokenMatch(token) {
   const tokens = config.slack.webhooks.requestTokens;
   const match = tokens.filter((t) => t === token);

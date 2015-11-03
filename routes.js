@@ -34,6 +34,20 @@ module.exports = [
   },
 
   {
+    path: '/workers/{id}',
+    method: 'DELETE',
+    handler: employee.delete,
+    config:{
+      validate:{
+        params:{
+          id: Joi.string().guid()
+        }
+      },
+      auth: 'simple'
+    }
+  },
+
+  {
     path: '/workers',
     method: 'PUT',
     handler: employee.updateStatus,

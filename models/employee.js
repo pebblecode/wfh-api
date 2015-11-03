@@ -29,6 +29,7 @@ _.extend(internals.Employee.prototype, Base.prototype);
 
 internals.Employee.prototype.toJSON = function() {
   return {
+    id: this.id,
     name: this.name,
     email: this.email,
     status: this.status,
@@ -61,8 +62,9 @@ internals.Employee.getAll = function() {
         if (employee.statusExpired) {
           batchUpdates.push(employee);
         }
-
+        console.log(employee);
         return {
+          id: employee._id,
           name: employee.name,
           email: employee.email,
           status: {
