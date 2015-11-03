@@ -1,4 +1,4 @@
-# Wfh node backend
+# WFH API - node Slack Slash Commands
 A node implementation of the wfh api, more details see blogpost: http://pebblecode.com/blog/hack-day-wfh-bot/
 
 in slack you can do:
