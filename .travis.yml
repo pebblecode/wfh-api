@@ -3,3 +3,11 @@ node_js:
 - '4.0'
 - '4.1'
 - '4.2'
+deploy:
+  provider: heroku
+  on:
+    branch: master
+  api_key:
+    secure: QgdI23f0DLlOUAbJ8Q3y5JZF/SEU/DLGLNmDKqeKJ+8UbPd5q1+sIPWChSiSoKfrvApZz4oUI5fMSSCz/IL+yM/gwZfQ/9gvNDZRxDQW0uNRhP/fPiyqK90us8wMSdHsBuW7bGpldFmdlMtjwqFy8WC5JB0mjuLLBL8Fm15zGMnTNQXYpJvGlQmhuJoBFPrsld/VgMVnXNdofrbE68h+lsPJfNDrZWEUBF+zGMXpotuO2J6piz7M4uVO6zGML3zE+C9Lwt6weLhjCzkimTqOkhCS5VObn+C8JfUI91d1HaV9Fj1ZsNPEqY2VWtqt2Op/KpHQkC/uLxBv9TAh6k2RyirjtZsiBco41O3AWndItFO6V/hNOS8cFER8rf/zKgkTy1cjK6VxlqmkZiS07Rsj/fFDz//u51V3BumT+ldi2f28DIws4iFI7FvxDzsuTdh3c1izOtqfmEc0H/jB3juWcE4jT9zIV0v3UqyyJpFyai1nRt36fXNYjwLM44AfG2g3AL57FHEz+b4O/Vpcckb93sE05UFnZY9xugNCBnPBASmktQ1FwbNUjFXNd3TYh1VmLFbX1+zUTXxYyUL5+gpZJIxVhXYwmp38mZkHB1DhycrBKPGtBm9jmpx7t1QbRgh+wjw3wAUfXj6xzF8NTtGk+SK/r8XTBescLoe4NUDIKBY=
+  app:
+    master: pebblecode-wfh
