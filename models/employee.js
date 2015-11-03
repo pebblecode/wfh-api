@@ -231,3 +231,27 @@ db.save('_design/' + TYPE, {
     }
   }
 });
+
+db.save('_design/Employee-Log', {
+  all: {
+    map: function(doc) {
+      if (doc.type === 'Employee-Log') {
+        emit(doc.id, doc);
+      }
+    }
+  },
+  byEmail: {
+    map: function(doc) {
+      if (doc.type === 'Employee-Log') {
+        emit(doc.email, doc);
+      }
+    }
+  },
+  byDate: {
+    map: function(doc) {
+      if (doc.type === 'Employee-Log') {
+        emit(doc.dateModified, doc);
+      }
+    }
+  }
+});
