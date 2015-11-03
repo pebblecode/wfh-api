@@ -1,6 +1,6 @@
 # WFH API 
 ### What is this?
-We at pebble have an remote working policy, so to help find out who is working where; we have built a system to show the list of workers and thier status. For more details see our blogpost:http://pebblecode.com/blog/hack-day-wfh-bot/ Do you also work in a remote workplace? If you're using Slack you can easily deploy your own, and even start building things with the api. We have two services connecting to our api, one to send a summary email every day mon-fri at 10am and another which pulls sickness and holiday information from our HR system.
+We at pebble have an remote working policy, so to help find out who is working where; we have built a system to show the list of workers and thier status. For more details see our [blogpost](http://pebblecode.com/blog/november-wfh-slack/) Do you also work in a remote workplace? If you're using Slack you can easily deploy your own, and even start building things with the api. We have two services connecting to our api, one to send a summary email every day mon-fri at 10am and another which pulls sickness and holiday information from our HR system.
 
 This repo contains a node implementation of the pebble {code}the wfh api, more details see blogpost: http://pebblecode.com/blog/hack-day-wfh-bot/
 
@@ -60,10 +60,17 @@ to get a slack token visit: https://api.slack.com/web
 |   /workers |   GET   |         | get all workers, used by email cron and tv display |
 |   /workers |   POST   |   `{"name":"John Snow", "email":"john.snow@pebblecode.com", status:"Sick" }`  | create a new worker, `"message": "your message"` is optional |
 | /workers   | PUT | `{"email":"john.snow@pebblecode.com", "status":"Holiday"}` | Update status for worker|
-| /workers/{id}   | DELETE |  | Delete a worker|
+| /workers/id | DELETE |  | Delete a worker by uuid|
 
 #AUTH 
 is BASIC auth and password is a hashed bcrypt stored in the `ADMIN_PASSWORD` env variable.
+
+
+###Integrations
+The api has full CRUD functionality, see the docs for more details. So this is open for your own integrations. We've used this to integrate with [Tribe HR](https://github.com/pebblecode/tribehr-holiday-fetcher) and [send Emails at 10am](https://github.com/pebblecode/wfh-email-cron)
+
+###Architecture
+![image of architecture](http://pebblecode.com/img/posts/2015-11-03-wfh-slack/diagram.png)
 
 #Helpful Links
  - Slack [api](https://api.slack.com/).
@@ -76,4 +83,8 @@ Awesome! Get in touch first, make an issue to discuss your change and we can go 
 - Add functionality to delete workers (use slack as source of truth. slack api)
 - Websocket support for connecting devices
 - Docker deployment - fix bcrypt build errors: https://github.com/ncb000gt/node.bcrypt.js/issues/368
+
+###We'd love to hear from you
+Let us know what you do with WFH bot.
+
 
