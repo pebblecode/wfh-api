@@ -53,7 +53,7 @@ internals.Base.update = function(model, attr) {
 internals.Base.delete = function(id) {
   return new Promise(function(resolve, reject) {
     db.remove(id, function(err, res) {
-      if (err) {
+      if (err && err.error != 'not_found') {
         return reject(err);
       }
       resolve(res);
