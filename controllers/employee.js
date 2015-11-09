@@ -37,7 +37,7 @@ module.exports.addNew = function(request, reply) {
       }
 
       if (!Employee.isValidStatus(payload.status)) {
-        return reply(Boom.badRequest('Not a valid status type'));
+        return reply(Boom.badRequest(`Not a valid status type Email: ${payload.email}`));
       }
 
       var employee = new Employee(payload)

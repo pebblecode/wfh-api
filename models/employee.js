@@ -62,7 +62,7 @@ internals.Employee.getAll = function() {
         if (employee.statusExpired) {
           batchUpdates.push(employee);
         }
-        console.log(employee);
+
         return {
           id: employee._id,
           name: employee.name,
@@ -114,6 +114,7 @@ internals.Employee.getByEmail = function(email) {
       if (employee) {
         return _.first(employee).value;
       } else {
+        console.log(`Employee Does not Exist ${email}`);
         return null;
       }
     });

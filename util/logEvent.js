@@ -3,7 +3,8 @@ const Analytics = require('analytics-node');
 const config = require('../config');
 
 module.exports = function(employee) {
-  if (!config.segment && !config.segment.writeKey) {
+
+  if (!config.segment || !config.segment.writeKey || !config.segment.writeKey.length) {
     return;
   }
 
