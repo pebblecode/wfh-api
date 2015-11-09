@@ -15,7 +15,7 @@ message: `/wfh message:I'll be at home in my pants` or `/wfo message:I'll be at 
 default: `/wfh default:wfo` this allows your default location to be either `wfh,wfo` 
 
 The first time a user does /wfh, /wfo opts the user into the system. After that they will be shown in the api response /workers.
-
+ 
 
 #Have your own instance of WFH. [![Deploy your own!](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fpebblecode%2Fwfh3_backend)
 You will need to configure Slack slash [commands](https://slack.com/services#service_16).
