@@ -58,8 +58,8 @@ to get a slack token visit: https://api.slack.com/web
 | path       |  method | payload | details |
 |------------|---------|---------|---------|
 |   /workers |   GET   |         | get all workers, used by email cron and tv display |
-|   /workers |   POST   |   `{"name":"John Snow", "email":"john.snow@pebblecode.com", status:"Sick" }`  | create a new worker, `"message": "your message"` is optional |
-| /workers   | PUT | `{"email":"john.snow@pebblecode.com", "status":"Holiday"}` | Update status for worker|
+|   /workers |   POST   |   `{"name":"Jon Snow", "email":"jon.snow@pebblecode.com", status:"Sick" }`  | create a new worker, `"message": "your message"` is optional |
+| /workers   | PUT | `{"email":"jon.snow@pebblecode.com", "status":"Holiday"}` | Update status for worker|
 | /workers/id | DELETE |  | Delete a worker by uuid|
 
 #AUTH 
