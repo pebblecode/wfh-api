@@ -67,7 +67,7 @@ is BASIC auth and password is a hashed bcrypt stored in the `ADMIN_PASSWORD` env
 
 
 ###Integrations
-The api has full CRUD functionality, see the docs for more details. So this is open for your own integrations. We've used this to integrate with [Tribe HR](https://github.com/pebblecode/tribehr-holiday-fetcher) and [send Emails at 10am](https://github.com/pebblecode/wfh-email-cron)
+The api has full CRUD functionality, see the docs for more details. So this is open for your own integrations. We've used this to integrate with [Tribe HR](https://github.com/pebblecode/tribehr-holiday-fetcher), [send Emails at 10am](https://github.com/pebblecode/wfh-email-cron) or [display on a TV in the office](https://github.com/pebblecode/wfh-frontend).
 
 ###Architecture
 ![image of architecture](http://pebblecode.com/img/posts/2015-11-03-wfh-slack/diagram.png)
