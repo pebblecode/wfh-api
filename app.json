@@ -16,7 +16,7 @@
     },
     "COUCHDB_PORT":{
       "description":"CouchDb port",
-      "value":443
+      "value":"443"
     },
     "COUCHDB_NAME":{
       "description":"",
